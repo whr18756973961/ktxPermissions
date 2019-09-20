@@ -1,0 +1,2 @@
+include ':app', ':ktxpermissions'
+rootProject.name='KtxPermission'
