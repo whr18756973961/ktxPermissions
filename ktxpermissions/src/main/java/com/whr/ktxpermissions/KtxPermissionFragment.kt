@@ -134,4 +134,16 @@ class KtxPermissionFragment : Fragment() {
         intent.setData(Uri.fromParts("package", context.getPackageName(), null))
         (context as Activity).startActivity(intent)
     }
+
+
+    @TargetApi(Build.VERSION_CODES.M)
+    internal fun isGranted(permission: String): Boolean {
+        return getActivity()?.checkSelfPermission(permission) == PackageManager.PERMISSION_GRANTED
+    }
+
+    @TargetApi(Build.VERSION_CODES.M)
+    internal fun isRevoked(permission: String): Boolean {
+        return getActivity()!!.getPackageManager()
+            .isPermissionRevokedByPolicy(permission, getActivity()!!.getPackageName())
+    }
 }

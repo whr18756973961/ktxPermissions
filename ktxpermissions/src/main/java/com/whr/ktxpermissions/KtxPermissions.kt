@@ -1,5 +1,8 @@
 package com.whr.ktxpermissions
 
+import android.annotation.TargetApi
+import android.content.pm.PackageManager
+import android.os.Build
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import java.lang.NullPointerException
@@ -65,6 +68,19 @@ class KtxPermissions private constructor() {
             ktxFragment = fragment as KtxPermissionFragment
         }
         return ktxFragment
+    }
+
+
+    fun isGranted(permission: String): Boolean {
+        return !isMarshmallow() || ktxPermissionFragment!!.isGranted(permission)
+    }
+
+    fun isRevoked(permission: String): Boolean {
+        return isMarshmallow() && ktxPermissionFragment!!.isRevoked(permission)
+    }
+
+    fun isMarshmallow(): Boolean {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
     }
 
 }
